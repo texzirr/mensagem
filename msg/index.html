@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para uma Pessoa Especial</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Pacifico&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5b0c9 0%, #aed9e0 100%); 
+        }
+
+        .cute-title {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400; 
+            letter-spacing: 0.05em; 
+            text-shadow: 2px 2px 5px rgba(255, 102, 196, 0.4); 
+            color: #d15190; 
+            line-height: 1.1;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .content-hidden {
+            display: none;
+        }
+        .content-visible {
+            display: block;
+            animation: fadeInScale 1.5s ease-out forwards; 
+        }
+
+        @keyframes fadeOutCollapse {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+        }
+        .content-collapsing {
+            transition: all 0.8s ease-in; 
+            animation: fadeOutCollapse 0.8s ease-in forwards;
+        }
+        
+        @keyframes pulseShadow {
+            0% {
+                box-shadow: 0 0 0 0px rgba(255, 102, 196, 0.6); 
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(255, 102, 196, 0.0);
+            }
+            100% {
+                box-shadow: 0 0 0 0px rgba(255, 102, 196, 0.6);
+            }
+        }
+
+        .cute-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(255, 102, 196, 0.4), 0 2px 4px -2px rgba(255, 102, 196, 0.1);
+            animation: pulseShadow 2s infinite ease-out; 
+        }
+        .cute-button:hover {
+            box-shadow: 0 10px 15px -3px rgba(255, 102, 196, 0.7), 0 4px 6px -2px rgba(255, 102, 196, 0.05);
+            transform: translateY(-3px);
+            animation: none; 
+        }
+
+        @keyframes subtleVibrate {
+            0%, 100% { transform: scale(1) translateY(0); opacity: 0.8; }
+            25% { transform: scale(1.02) translateY(-1px); opacity: 0.9; }
+            50% { transform: scale(1) translateY(0); opacity: 0.8; }
+            75% { transform: scale(1.02) translateY(1px); opacity: 0.9; }
+        }
+        .vibrating-detail {
+            animation: subtleVibrate 3s ease-in-out infinite;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        .animate-bounce-in {
+            animation: bounceIn 0.5s ease-out forwards;
+        }
+
+        @keyframes heartbeat {
+            0% { 
+                transform: scale(1); 
+                text-shadow: none; /* Sem brilho */
+            }
+            50% { 
+                transform: scale(1.08); /* Pulso sutil */
+                /* Adiciona brilho suave no pico */
+                text-shadow: 0 0 10px #ff69b4, 0 0 5px #ff69b4; 
+            } 
+            100% { 
+                transform: scale(1); 
+                text-shadow: none; /* Sem brilho */
+            }
+        }
+        .heart-pulsing {
+            animation: heartbeat 1.8s infinite ease-in-out; /* Velocidade suave */
+        }
+
+        #button-section {
+            transition: all 0.7s ease-in-out; 
+        }
+        
+        @keyframes ultraSmoothTwinkle {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.6); 
+            }
+            20% { 
+                opacity: 0.8; 
+                transform: scale(1); 
+            }
+            80% { 
+                opacity: 0.8; 
+                transform: scale(1); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0.6); 
+            }
+        }
+
+        #heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .dynamic-floating-heart {
+            position: absolute;
+            color: rgba(255, 102, 196, 0.7);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            will-change: transform, opacity;
+            
+            opacity: 0; 
+            transform: scale(0.6);
+            
+            animation: ultraSmoothTwinkle 4s ease-out forwards; 
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <audio id="background-music" loop>
+        <source src="file_content/uploaded:Goo Goo Dolls – Iris [Official Music Video] [4K Remaster](MP3_160K).mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <main class="w-full max-w-lg mx-auto relative">
+
+        <div id="button-section" class="bg-white/90 backdrop-blur-md p-8 sm:p-12 rounded-3xl shadow-xl border border-pink-100 flex flex-col items-center justify-center text-center">
+            
+            <h1 class="cute-title text-5xl sm:text-6xl mb-12">
+                Mensagem Secreta
+            </h1>
+            
+            <p class="text-gray-500 mb-10 text-lg font-medium uppercase tracking-wider leading-tight">
+                fiz este site porque há algo importante que preciso te dizer
+            </p>
+            
+            <button id="main-button" 
+                    onclick="revealContent()"
+                    class="cute-button bg-pink-500 text-white font-bold tracking-wider py-4 px-12 rounded-full text-lg shadow-lg transform active:scale-95">
+                Abrir Mensagem
+            </button>
+        </div>
+
+        <div id="content-section" class="content-hidden bg-white p-6 sm:p-10 rounded-3xl shadow-2xl text-center border-t-4 border-pink-400 relative z-20">
+            
+            <div id="heart-container">
+            </div>
+
+            <div class="mb-6 relative z-30">
+                <span class="text-6xl heart-pulsing" style="color: #ff69b4;">&#x2764;</span> 
+            </div>
+
+            <p id="main-message" class="text-base sm:text-lg text-gray-700 font-normal text-left leading-normal whitespace-pre-wrap relative z-30">
+Olha, eu vou ser bem sincero contigo, eu quero algo, mas eu também fico com medo, eu tenho medo de me entregar e acabar me machucando de novo, um receio em mim que eu ainda carrego, mesmo querendo muito tentar de novo, e tem coisas em você que mexem comigo de um jeito que eu não sei explicar tipo esse seu medo de estragar algo que você mesma deseja…não faz muito sentido na minha cabeça, eu quero, mas ao mesmo tempo fico pensando se vou acabar me machucando, eu penso em você, você aparece quando eu penso no futuro, quando lembro de momentos que me fizeram bem, quando imagino alguém ao meu lado, eu imagino você lá, e eu não consigo fingir que não está, então, sendo direto, eu nunca me abri assim com ngm, acho que nunca senti algo assim por ngm, eu sinto medo, mas sinto vontade, eu tenho inseguranças, mas tenho disposição. eu não sei o que vai acontecer… mas sei o que eu sinto, e eu ainda sinto você. mesmo assim… mesmo com tudo isso tem uma coisa que você falou que ficou presa na minha cabeça, quando você disse que não é a pessoa certa pra dizer que gosta de homem, mas gosta de mim. eu vou ser sincero…isso não me conforta, na verdade, me deixa inseguro, porque eu fico com a sensação de que a única exceção sou eu, e que isso pode mudar a qualquer momento, e eu tenho medo de construir algo em cima de uma exceção frágil, eu não sou e não quero ser exceção de ninguém, eu quero ser escolha, quero ser certeza construída, não acaso que aconteceu no meio do caminho, e também nada faz sentido, se você não é a pessoa certa pra dizer se gosta ou não então porque continuar, se eu não sou aquilo que você gosta porque insistir se você já provou 2x que não é oque vc quer então porque?, se eu faço você ter essa incerteza ou se você tem por você mesma então oque você sente?, porque eu acho que se não gostasse realmente....a gente não estaria tendo essa conversa...enfim eu precisava te falar isso, porque esconder só ia virar peso que eu ia levar pra vida cmg, então eu só quero que prometa uma coisa. se for pra eu ser mais uma vez uma incerteza...que a gente não saia desse texto e continue com nossa amizade normalmente, porque um relacionamento depende de amor, sentimento, intensidade, paixão e compromisso, se não for pra ter que fique por isso msm, e a gente pode matar a saudade um do outro sem ter nada.
+            </p>
+            
+            <hr class="my-8 border-pink-200">
+            
+            <p class="text-xs text-gray-400 mt-2 relative z-30 vibrating-detail font-medium tracking-wide">
+                Ass: Mateus Ribeiro Lopes
+            </p>
+
+            <button id="back-button" 
+                    onclick="goBack()"
+                    class="hidden mt-8 bg-gray-200 text-gray-600 font-semibold py-2 px-6 rounded-full text-sm hover:bg-gray-300 transition-all duration-300 transform active:scale-95">
+                Voltar
+            </button>
+
+        </div>
+
+    </main>
+
+    <script>
+        const buttonSection = document.getElementById('button-section');
+        const contentSection = document.getElementById('content-section');
+        const music = document.getElementById('background-music');
+        const backButton = document.getElementById('back-button');
+        const heartContainer = document.getElementById('heart-container');
+        let heartInterval = null;
+
+        function createFloatingHeart() {
+            const heart = document.createElement('span');
+            heart.innerHTML = '&#x2764;'; 
+            heart.classList.add('dynamic-floating-heart');
+            
+            const randomLeft = Math.random() * 95; 
+            const randomTop = Math.random() * 95; 
+            const size = Math.floor(Math.random() * 18) + 16; 
+            const duration = 4;
+
+            heart.style.left = `${randomLeft}%`;
+            heart.style.top = `${randomTop}%`; 
+            heart.style.fontSize = `${size}px`;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `${Math.random() * 0.5}s`; 
+
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000 + 100); 
+        }
+
+        function startHeartGeneration() {
+            if (heartInterval) clearInterval(heartInterval);
+            heartInterval = setInterval(createFloatingHeart, 200);
+        }
+
+        function stopHeartGeneration() {
+            if (heartInterval) clearInterval(heartInterval);
+            heartInterval = null;
+        }
+
+        function revealContent() {
+            buttonSection.style.opacity = '0';
+            buttonSection.style.transform = 'scale(0.8)';
+            buttonSection.style.filter = 'blur(8px)';
+
+            // Tenta carregar o áudio primeiro para garantir que esteja pronto
+            music.load(); 
+            
+            music.volume = 1.0; // Volume máximo
+            music.play().catch(error => {
+                // Mantém apenas o aviso de erro
+                console.error("Falha ao tentar reproduzir a música automaticamente. Verifique se o arquivo está acessível.", error);
+            });
+
+            setTimeout(() => {
+                buttonSection.classList.add('hidden');
+                
+                contentSection.classList.remove('content-hidden');
+                contentSection.classList.add('content-visible');
+                startHeartGeneration();
+
+                setTimeout(() => {
+                    backButton.classList.remove('hidden');
+                    backButton.classList.add('animate-bounce-in');
+                }, 1000); 
+            }, 700);
+        }
+
+        function goBack() {
+            contentSection.classList.remove('content-visible');
+            contentSection.classList.add('content-collapsing');
+            stopHeartGeneration();
+
+            backButton.classList.add('hidden'); 
+
+            music.pause();
+            music.currentTime = 0; 
+
+            setTimeout(() => {
+                contentSection.classList.add('content-hidden');
+                contentSection.classList.remove('content-collapsing');
+
+                buttonSection.classList.remove('hidden');
+                buttonSection.style.opacity = '1';
+                buttonSection.style.transform = 'scale(1)';
+                buttonSection.style.filter = 'none';
+            }, 800); 
+        }
+        
+    </script>
+</body>
+</html>
